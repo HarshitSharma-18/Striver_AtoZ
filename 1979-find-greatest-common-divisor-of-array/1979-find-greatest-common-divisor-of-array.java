@@ -1,14 +1,17 @@
 class Solution {
     public int findGCD(int[] nums) {
         int n = nums.length;
-        int mn = 1001, mx = 0;
+        int mn = Integer.MAX_VALUE , mx = Integer.MIN_VALUE;
 
-        for (int num : nums) {
-            if (num < mn)
-                mn = num;
-            if (num > mx)
-                mx = num;
+        for(int i = 0; i < n ; i++){
+            if(nums[i] < mn){
+                mn = nums[i];
+            }
+            if(nums[i] > mx){
+                mx = nums[i];
+            }
         }
+        
         return gcd(mn, mx);
     }
 
