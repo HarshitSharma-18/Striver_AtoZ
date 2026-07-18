@@ -1,17 +1,23 @@
 class Solution {
     public int findGCD(int[] nums) {
         int n = nums.length;
-        Arrays.sort(nums);
+        int mn = 1001, mx = 0;
 
-        return gcd(nums[0] , nums[n-1]);
+        for (int num : nums) {
+            if (num < mn)
+                mn = num;
+            if (num > mx)
+                mx = num;
+        }
+        return gcd(mn, mx);
     }
 
     public int gcd(int a , int b){
-         while (b != 0) {
-            int temp = b;
-            b = a % b;
-            a = temp;
+        if(b == 0){
+            return a;
         }
-        return a;
+        else{
+            return gcd(b , a%b);
+        }
     }
 }
