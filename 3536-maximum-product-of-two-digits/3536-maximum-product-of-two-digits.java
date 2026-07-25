@@ -6,14 +6,8 @@ class Solution {
 
         Arrays.sort(array);
 
-        int product = 1;
-        int i = array.length-1;
-        while(i >= array.length - 2){
-            int lastDigit = array[i] - '0';
-            product = product * lastDigit;
-            i--;
-        }
+        int m = array.length;
 
-        return product;
+        return (array[m-1] - '0') * (array[m-2] - '0');
     }
 }
