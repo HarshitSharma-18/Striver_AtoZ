@@ -5,7 +5,10 @@ class Solution {
         int n = nums.length;
 
         for(int f = 0; f < n ; f++){
-            if(f == 0 || nums[f] != nums[f - 1]){
+            if(nums[f] > 0){
+                break;
+            }
+            else if(f == 0 || nums[f] != nums[f - 1]){
                 twoSumHelper(nums[f] , f+1 , n-1 , nums , result);
             }
         }
