@@ -8,17 +8,28 @@ class Solution {
             map.put(nums[i] , map.getOrDefault(nums[i] , 0) + 1);
         }
 
-        // List<Map.Entry<Integer , Interger>> list = new ArrayList<>(map.entryset());
+        List<Map.Entry<Integer , Integer>> list = new ArrayList<>(map.entrySet());
 
-        PriorityQueue<Map.Entry<Integer , Integer>> maxHeap = new PriorityQueue<>((a , b) -> Integer.compare(b.getValue() , a.getValue()));
+        PriorityQueue<Map.Entry<Integer , Integer>> minHeap = new PriorityQueue<>((a , b) -> Integer.compare(a.getValue() , b.getValue()));
 
-        maxHeap.addAll(map.entrySet());
+        for(Map.Entry<Integer , Integer> entries : list){
+            if(minHeap.size() == k) break;
+            minHeap.add(entries);
+        }
 
         int[] arr = new int[k];
+
+        for(int i = k ; i < list.size() ; i++){
+            if(minHeap.peek().getValue() < list.get(i).getValue()){
+                minHeap.poll();
+                minHeap.add(list.get(i));
+            }
+        }
+
         int i = 0;
-        while(i < k){
-            arr[i] = maxHeap.peek().getKey();
-            maxHeap.poll();
+        while(!minHeap.isEmpty()){
+            arr[i] = minHeap.peek().getKey();
+            minHeap.poll();
             i++;
         }
 
