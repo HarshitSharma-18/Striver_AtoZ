@@ -2,27 +2,19 @@ class Solution {
     public int[][] kClosest(int[][] points, int k) {
         int n = points.length;
 
-        List<Pair> list = new ArrayList<>();
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a , b) -> Double.compare(distanceHelper(b) , distanceHelper(a)));
 
-        for(int i = 0 ; i < n ; i++){
-            list.add(new Pair(i , distanceHelper(points[i][0] , points[i][1])));
-        }
-
-        PriorityQueue<Pair> maxHeap = new PriorityQueue<>((a , b) -> Double.compare(b.distance , a.distance));
-
-        for(Pair entries : list){
+        for(int[] entries : points){
             if(maxHeap.size() == k) {
                 break;
             }
             maxHeap.add(entries);
         }
 
-        int m = list.size();
-        for(int i = k ; i < m ; i++){
-            maxHeap.add(list.get(i));
-
-            if(maxHeap.size() > k){
+        for(int i = k ; i < n ; i++){
+            if(distanceHelper(maxHeap.peek()) > distanceHelper((points[i]))){
                 maxHeap.poll();
+                maxHeap.add(points[i]);
             }
         }
 
@@ -30,24 +22,15 @@ class Solution {
 
         int i = 0;
         while(!maxHeap.isEmpty()){
-            int index = maxHeap.poll().index;
-            result[i] = points[index];
+            result[i] = maxHeap.poll();
             i++;
         }
 
         return result;
     }
-    public double distanceHelper(double x1 , double y1){
+    public double distanceHelper(int[] arr){
+        int x1 = arr[0];
+        int y1 = arr[1];
         return Math.sqrt((x1*x1) + (y1*y1));
-    }
-}
-
-class Pair{
-    int index;
-    double distance;
-
-    Pair(int index , double distance){
-        this.index = index;
-        this.distance = distance;
     }
 }
