@@ -19,9 +19,10 @@ class Solution {
 
         int m = list.size();
         for(int i = k ; i < m ; i++){
-            if(maxHeap.peek().distance > list.get(i).distance){
+            maxHeap.add(list.get(i));
+
+            if(maxHeap.size() > k){
                 maxHeap.poll();
-                maxHeap.add(list.get(i));
             }
         }
 
