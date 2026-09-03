@@ -22,9 +22,7 @@ class Solution {
 
                 p1.setValue(p1.getValue() - 1);
 
-                if(p1.getValue() > 0){
-                    maxHeap.add(p1);
-                }
+                
             }
             else{
                 if(maxHeap.isEmpty()){
@@ -39,7 +37,9 @@ class Solution {
                 if(p2.getValue() > 0){
                     maxHeap.add(p2);
                 }
+            }
 
+            if(p1.getValue() > 0){
                 maxHeap.add(p1);
             }
         }
