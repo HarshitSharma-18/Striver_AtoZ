@@ -1,6 +1,7 @@
 class Solution {
+    HashMap<Integer , Integer> map = new HashMap<>();
+
     public int fib(int n) {
-        HashMap<Integer , Integer> map = new HashMap<>();
 
        if(n == 0 || n == 1){
             return n;
