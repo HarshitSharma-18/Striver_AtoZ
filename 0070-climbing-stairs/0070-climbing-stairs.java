@@ -2,17 +2,24 @@ class Solution {
     HashMap<Integer , Integer> map = new HashMap<>();
 
     public int climbStairs(int n) {
-        if(n == 0 || n == 1){
+       return helperFunc(0 , n);
+    }
+
+    public int helperFunc(int i , int n){
+        if(i == n){
             return 1;
         }
-        
-        if(map.containsKey(n)){
-            return map.get(n);
+
+        if(i > n){
+            return 0;
         }
 
-        int ans = climbStairs(n - 2) + climbStairs(n - 1);
-        map.put(n , ans);
+        if(map.containsKey(i)){
+            return map.get(i);
+        }
 
+        int ans = helperFunc(i+1 , n) + helperFunc(i+2 , n);
+        map.put(i , ans);
         return ans;
         
     }
