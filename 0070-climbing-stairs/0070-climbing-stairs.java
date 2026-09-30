@@ -1,11 +1,12 @@
 class Solution {
-    HashMap<Integer , Integer> map = new HashMap<>();
-
     public int climbStairs(int n) {
-       return helperFunc(0 , n);
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+
+        return helperFunc(dp , 0 , n);
     }
 
-    public int helperFunc(int i , int n){
+    public int helperFunc(int[] dp , int i , int n){
         if(i == n){
             return 1;
         }
@@ -14,13 +15,11 @@ class Solution {
             return 0;
         }
 
-        if(map.containsKey(i)){
-            return map.get(i);
+        if(dp[i] != -1){
+            return dp[i];
         }
 
-        int ans = helperFunc(i+1 , n) + helperFunc(i+2 , n);
-        map.put(i , ans);
-        return ans;
-        
+        dp[i] = helperFunc(dp , i+1 , n) + helperFunc(dp , i+2 , n);
+        return dp[i];
     }
 }
