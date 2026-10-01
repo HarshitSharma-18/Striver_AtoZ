@@ -4,8 +4,8 @@ class Solution {
         int[][] dp = new int[n+1][3];
 
         for (int i = 0; i <= n; i++) {
-    Arrays.fill(dp[i], -1);
-}
+            Arrays.fill(dp[i], -1);
+        }
 
         // Fill first column with 0
         for (int i = 0; i <= n; i++) {
@@ -18,21 +18,9 @@ class Solution {
         } 
 
         for(int i = n-1 ; i >= 0 ; i--){
-            for (int k = 1; k <= 2; k++){
+            dp[i][2] = Math.max(dp[i+1][1] - prices[i] , dp[i+1][2]);
 
-                if(k == 2){
-                    int c1 = dp[i+1][k-1] - prices[i];
-                    int c2 = dp[i+1][k];
-
-                    dp[i][k] = Math.max(c1 , c2);
-                }
-                else{
-                    int c1 = dp[i+1][k-1] + prices[i];
-                    int c2 = dp[i+1][k];
-
-                    dp[i][k] = Math.max(c1 , c2);
-                }
-            }
+            dp[i][1] = Math.max(dp[i+1][0] + prices[i] , dp[i+1][1]);
         }
 
         return dp[0][2];
