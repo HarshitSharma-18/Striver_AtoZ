@@ -1,39 +1,28 @@
 class Solution {
     public int maxProfit(int[] prices) {
         int n = prices.length;
-        int k = 2;
-        int[][] dp = new int[n+1][k+1];
-        for (int i = 0; i < n; i++) {
+        int[][] dp = new int[n+1][3];
+
+        for (int i = 0; i <= n; i++) {
             Arrays.fill(dp[i], -1);
-        }   
-
-        return helperFunc(dp , prices , 0 , 2 , n);
-    }
-
-    public int helperFunc(int[][] dp , int[] prices , int i , int k , int n){
-        if(i == n){
-            return 0;
         }
 
-        if(k == 0){
-            return 0;
+        // Fill first column with 0
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 0;
         }
 
-        if(dp[i][k] != -1) return dp[i][k];
+        // Fill last row with 0
+        for (int j = 0; j < 3; j++) {
+            dp[n][j] = 0;
+        } 
 
-        if(k == 2){
-            int c1 = helperFunc(dp , prices , i+1 , k-1 , n) - prices[i];
-            int c2 = helperFunc(dp , prices , i+1 , k , n);
+        for(int i = n-1 ; i >= 0 ; i--){
+            dp[i][2] = Math.max(dp[i+1][1] - prices[i] , dp[i+1][2]);
 
-            dp[i][k] = Math.max(c1 , c2);
-            return dp[i][k];
+            dp[i][1] = Math.max(dp[i+1][2] + prices[i] , dp[i+1][1]);
         }
-        else{
-            int c1 = helperFunc(dp , prices , i+1 , k+1 , n) + prices[i];
-            int c2 = helperFunc(dp , prices , i+1 , k , n);
 
-            dp[i][k] =  Math.max(c1 , c2);
-            return dp[i][k];
-        }
+        return dp[0][2];
     }
 }
