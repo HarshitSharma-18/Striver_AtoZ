@@ -13,10 +13,7 @@ class Solution {
                     char top = stack.peek();
                     stack.pop();
 
-                    if(ch == ')' && top == '(' || ch == '}' && top == '{' || ch == ']' && top == '['){
-                        //it's okay but do nothing
-                    }
-                    else{
+                    if(ch == ')' && top != '(' || ch == '}' && top != '{' || ch == ']' && top != '['){
                         return false;
                     }
                 }
