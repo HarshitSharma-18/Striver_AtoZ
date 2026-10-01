@@ -4,16 +4,18 @@ class Solution {
         int[][] dp = new int[n+1][3];
 
         for (int i = 0; i <= n; i++) {
-            Arrays.fill(dp[i], -1);
+    Arrays.fill(dp[i], -1);
+}
+
+        // Fill first column with 0
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 0;
         }
 
-        for (int i = 0; i <= n; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (i == n || j == 0) {
-                    dp[i][j] = 0;
-                }
-            }
-        }  
+        // Fill last row with 0
+        for (int j = 0; j < 3; j++) {
+            dp[n][j] = 0;
+        } 
 
         for(int i = n-1 ; i >= 0 ; i--){
             for (int k = 1; k <= 2; k++){
